@@ -1,0 +1,1073 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Akash Kapruwan — Creative Lead & Motion Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<style>
+  :root {
+    --paper: #F3EEE5;
+    --paper-2: #EAE3D6;
+    --ink: #1A1815;
+    --ink-soft: #55504A;
+    --ink-faint: #8A8379;
+    --rule: #C9C0AF;
+    --accent: oklch(0.58 0.14 38);   /* terracotta */
+    --accent-soft: oklch(0.58 0.14 38 / 0.12);
+    --serif: 'Instrument Serif', 'Times New Roman', serif;
+    --sans: 'Inter', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  [data-theme="ink"] {
+    --paper: #12110F;
+    --paper-2: #1B1A17;
+    --ink: #F2EEE5;
+    --ink-soft: #B8B0A2;
+    --ink-faint: #7A7468;
+    --rule: #2E2C27;
+    --accent: oklch(0.78 0.14 68);
+  }
+  [data-theme="moss"] {
+    --paper: #EEEFE6;
+    --paper-2: #E3E5D7;
+    --ink: #1C1E18;
+    --ink-soft: #4F5347;
+    --ink-faint: #868A7A;
+    --rule: #BFC3B0;
+    --accent: oklch(0.48 0.09 145);
+  }
+  [data-theme="pool"] {
+    --paper: #ECEEF0;
+    --paper-2: #DEE3E7;
+    --ink: #141A1F;
+    --ink-soft: #3F4952;
+    --ink-faint: #7A8690;
+    --rule: #BCC6CD;
+    --accent: oklch(0.52 0.11 235);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans);
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "ss01", "ss02", "cv11";
+    transition: background .4s ease, color .4s ease;
+  }
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    background-image: radial-gradient(rgba(0,0,0,0.035) 1px, transparent 1px);
+    background-size: 3px 3px;
+    mix-blend-mode: multiply;
+    opacity: .6;
+    z-index: 0;
+  }
+  [data-theme="ink"] body::before,
+  body[data-theme="ink"]::before { mix-blend-mode: screen; opacity: .15; }
+
+  a { color: inherit; text-decoration: none; }
+  .mono { font-family: var(--mono); font-weight: 400; letter-spacing: 0.02em; }
+  .serif { font-family: var(--serif); font-weight: 400; font-style: normal; }
+  .tiny { font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; }
+
+  /* ===== Layout shell ===== */
+  .page { position: relative; z-index: 1; }
+  .rail {
+    position: fixed;
+    top: 0; bottom: 0; left: 0;
+    width: 64px;
+    border-right: 1px solid var(--rule);
+    display: flex; flex-direction: column; align-items: center;
+    padding: 24px 0 20px;
+    background: var(--paper);
+    z-index: 10;
+  }
+  .rail .mark {
+    font-family: var(--serif); font-size: 26px; line-height: 1;
+    writing-mode: vertical-rl; transform: rotate(180deg);
+    letter-spacing: 0.04em;
+  }
+  .rail .mark em { color: var(--accent); font-style: italic; }
+  .rail .foot { margin-top: auto; font-family: var(--mono); font-size: 10px; color: var(--ink-faint); writing-mode: vertical-rl; transform: rotate(180deg); letter-spacing: 0.18em; }
+
+  .topbar {
+    position: sticky; top: 0;
+    margin-left: 64px;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 14px 40px;
+    border-bottom: 1px solid var(--rule);
+    background: color-mix(in srgb, var(--paper) 92%, transparent);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 8;
+    font-family: var(--mono); font-size: 11px; color: var(--ink-soft);
+    letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .topbar .dot { display:inline-block; width:7px; height:7px; border-radius:50%; background: var(--accent); margin-right: 8px; box-shadow: 0 0 0 3px var(--accent-soft); }
+  .topbar .right { display: flex; gap: 18px; align-items: center; }
+  .topbar .cta {
+    border: 1px solid var(--ink);
+    padding: 7px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+    color: var(--ink);
+    background: transparent;
+    font: inherit;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    transition: background .2s, color .2s;
+  }
+  .topbar .cta:hover { background: var(--ink); color: var(--paper); }
+
+  main {
+    margin-left: 64px;
+    padding: 0 40px 120px;
+    max-width: 1280px;
+  }
+
+  /* ===== Hero ===== */
+  .hero { padding: 60px 0 40px; position: relative; }
+  .hero .meta {
+    display: grid; grid-template-columns: 180px 1fr;
+    gap: 24px; align-items: baseline;
+    padding-bottom: 18px; border-bottom: 1px solid var(--rule);
+    font-family: var(--mono); font-size: 11px;
+    color: var(--ink-soft); letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(72px, 11vw, 172px);
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    margin: 28px 0 8px;
+  }
+  .hero h1 .it { font-style: italic; color: var(--accent); }
+  .hero .title-row {
+    display: grid; grid-template-columns: 1.4fr 1fr;
+    gap: 40px; align-items: end;
+    padding-top: 32px; border-top: 1px solid var(--rule);
+    margin-top: 18px;
+  }
+  .hero .tagline {
+    font-family: var(--serif); font-size: 34px; line-height: 1.15;
+    max-width: 28ch;
+  }
+  .hero .tagline .accent { color: var(--accent); font-style: italic; }
+  .hero .summary {
+    font-size: 14.5px; color: var(--ink-soft); line-height: 1.65;
+    max-width: 46ch;
+    text-wrap: pretty;
+  }
+  .hero .pills {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-top: 40px;
+  }
+  .pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 7px 12px; border: 1px solid var(--rule); border-radius: 999px;
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--ink-soft);
+    transition: border-color .2s, color .2s, background .2s;
+  }
+  .pill .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+  .pill:hover { color: var(--ink); border-color: var(--ink); }
+
+  /* contact band */
+  .contact {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-top: 48px;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .contact > div {
+    padding: 18px 20px 20px;
+    border-right: 1px solid var(--rule);
+  }
+  .contact > div:last-child { border-right: none; }
+  .contact .label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 6px; }
+  .contact .value { font-family: var(--serif); font-size: 22px; line-height: 1.1; }
+  .contact a.value { border-bottom: 1px solid transparent; transition: border-color .2s, color .2s; }
+  .contact a.value:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* ===== Section scaffolding ===== */
+  section.block { padding: 96px 0 20px; position: relative; scroll-margin-top: 80px; }
+  .section-head {
+    display: grid; grid-template-columns: 64px 1fr auto;
+    gap: 28px; align-items: baseline;
+    padding-bottom: 20px; border-bottom: 1px solid var(--ink);
+    margin-bottom: 36px;
+  }
+  .section-head .num {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em;
+    color: var(--accent);
+  }
+  .section-head h2 {
+    font-family: var(--serif); font-weight: 400;
+    font-size: clamp(38px, 5vw, 56px); line-height: 1;
+    margin: 0; letter-spacing: -0.01em;
+  }
+  .section-head h2 .it { font-style: italic; color: var(--ink-soft); }
+  .section-head .count { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; color: var(--ink-faint); text-transform: uppercase; }
+
+  /* ===== Experience ===== */
+  .xp-item {
+    display: grid; grid-template-columns: 180px 1fr auto;
+    gap: 28px; align-items: start;
+    padding: 24px 0 26px;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+    cursor: pointer;
+    transition: padding .3s ease, background .3s;
+  }
+  .xp-item:hover { padding-left: 12px; }
+  .xp-item:hover::before {
+    content: ""; position: absolute; left: 0; top: 24px; bottom: 26px;
+    width: 2px; background: var(--accent);
+  }
+  .xp-item.current .role::after {
+    content: "NOW"; display: inline-block; margin-left: 10px;
+    padding: 2px 8px; background: var(--accent); color: var(--paper);
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.14em;
+    border-radius: 3px; vertical-align: middle;
+    transform: translateY(-2px);
+  }
+  .xp-item .dates { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; color: var(--ink-soft); padding-top: 6px; }
+  .xp-item .dates .sep { color: var(--ink-faint); }
+  .xp-item .role {
+    font-family: var(--serif); font-size: 30px; line-height: 1.1;
+    margin: 0 0 4px; letter-spacing: -0.01em;
+  }
+  .xp-item .company { font-size: 13px; color: var(--ink-soft); margin-bottom: 14px; font-family: var(--mono); letter-spacing: 0.04em; }
+  .xp-item .company .at { color: var(--ink-faint); margin: 0 8px; }
+  .xp-item ul { list-style: none; padding: 0; margin: 0; max-width: 64ch; }
+  .xp-item li {
+    position: relative; padding-left: 20px; margin-bottom: 8px;
+    color: var(--ink-soft); font-size: 14px; line-height: 1.55;
+    text-wrap: pretty;
+  }
+  .xp-item li::before {
+    content: ""; position: absolute; left: 0; top: 10px;
+    width: 10px; height: 1px; background: var(--ink-faint);
+  }
+  .xp-item .expand {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--ink-faint);
+    padding-top: 8px; white-space: nowrap;
+  }
+  .xp-item .expand .arr { display: inline-block; transition: transform .3s; }
+  .xp-item.open .arr { transform: rotate(90deg); color: var(--accent); }
+  .xp-item .details {
+    grid-column: 2 / 3;
+    max-height: 0; overflow: hidden;
+    transition: max-height .5s ease, margin .3s ease, opacity .3s;
+    opacity: 0;
+  }
+  .xp-item.open .details { max-height: 600px; opacity: 1; margin-top: 12px; }
+  .xp-item .details .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .xp-item .details .tag {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em;
+    padding: 4px 9px; border: 1px solid var(--rule); border-radius: 3px;
+    color: var(--ink-soft); text-transform: uppercase;
+  }
+
+  /* ===== Skills grid ===== */
+  .skills {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--rule);
+    border-left: 1px solid var(--rule);
+  }
+  .skill-card {
+    grid-column: span 4;
+    padding: 24px 24px 28px;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    background: var(--paper);
+    position: relative;
+    transition: background .25s;
+  }
+  .skill-card:hover { background: var(--paper-2); }
+  .skill-card .cat {
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--ink-faint);
+    margin-bottom: 18px;
+  }
+  .skill-card .cat .idx { color: var(--accent); }
+  .skill-card h3 {
+    font-family: var(--serif); font-weight: 400;
+    font-size: 26px; line-height: 1.1;
+    margin: 0 0 14px; letter-spacing: -0.01em;
+  }
+  .skill-card .items { display: flex; flex-wrap: wrap; gap: 6px 14px; }
+  .skill-card .it {
+    font-size: 13px; color: var(--ink-soft);
+    position: relative;
+  }
+  .skill-card .it.new {
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .skill-card .it.new::after {
+    content: "NEW";
+    display: inline-block;
+    margin-left: 6px;
+    padding: 1px 5px;
+    background: var(--accent);
+    color: var(--paper);
+    font-family: var(--mono); font-size: 8.5px;
+    letter-spacing: 0.12em;
+    border-radius: 2px;
+    vertical-align: 2px;
+  }
+  .skill-card .level {
+    margin-top: 16px;
+    display: flex; gap: 3px;
+  }
+  .skill-card .level span {
+    flex: 1; height: 3px; background: var(--rule);
+  }
+  .skill-card .level span.on { background: var(--ink); }
+
+  /* ===== Clients ===== */
+  .clients-wrap { position: relative; }
+  .clients-group { margin-bottom: 40px; }
+  .clients-group .cat {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--ink-faint);
+    margin-bottom: 16px; display: flex; align-items: center; gap: 12px;
+  }
+  .clients-group .cat::after {
+    content: ""; flex: 1; height: 1px; background: var(--rule);
+  }
+  .clients-grid {
+    display: flex; flex-wrap: wrap; gap: 10px;
+  }
+  .client-chip {
+    font-family: var(--serif); font-size: 28px; line-height: 1;
+    padding: 14px 22px 16px;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    background: var(--paper);
+    color: var(--ink);
+    transition: all .25s ease;
+    cursor: default;
+    letter-spacing: -0.01em;
+  }
+  .client-chip:hover {
+    background: var(--ink); color: var(--paper);
+    border-color: var(--ink);
+    transform: translateY(-2px);
+  }
+  .client-chip.sm { font-size: 20px; padding: 10px 16px 12px; }
+
+  /* ===== Education / langs / projects — side by side ===== */
+  .two-col {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+  }
+  .edu-item, .lang-item, .proj-item {
+    padding: 20px 0; border-bottom: 1px solid var(--rule);
+  }
+  .edu-item:last-child, .lang-item:last-child, .proj-item:last-child { border-bottom: none; }
+  .edu-item .dates, .proj-item .dates { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.12em; color: var(--ink-faint); text-transform: uppercase; margin-bottom: 4px; }
+  .edu-item h4, .proj-item h4 { font-family: var(--serif); font-size: 24px; margin: 0 0 4px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.15; }
+  .edu-item p, .proj-item p { color: var(--ink-soft); font-size: 13.5px; margin: 0; text-wrap: pretty; }
+
+  .lang-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 18px 0; border-bottom: 1px solid var(--rule);
+  }
+  .lang-row:last-child { border-bottom: none; }
+  .lang-row .name { font-family: var(--serif); font-size: 26px; }
+  .lang-row .level { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); }
+
+  /* ===== Footer ===== */
+  footer {
+    margin-top: 80px; padding: 48px 0 24px;
+    border-top: 1px solid var(--ink);
+  }
+  footer .big {
+    font-family: var(--serif); font-size: clamp(48px, 8vw, 112px);
+    line-height: 0.95; letter-spacing: -0.02em;
+    margin: 0 0 40px;
+  }
+  footer .big .it { font-style: italic; color: var(--accent); }
+  footer .foot-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 24px; font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft);
+    padding-top: 18px; border-top: 1px solid var(--rule);
+  }
+  footer .foot-grid a:hover { color: var(--accent); }
+  footer .sig { font-family: var(--serif); font-style: italic; font-size: 18px; color: var(--ink-faint); text-transform: none; letter-spacing: 0; }
+
+  /* ===== Scroll index (right side) ===== */
+  .scroll-index {
+    position: fixed; right: 30px; top: 50%; transform: translateY(-50%);
+    display: flex; flex-direction: column; gap: 14px;
+    z-index: 9;
+    font-family: var(--mono); font-size: 10px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .scroll-index a {
+    display: flex; align-items: center; gap: 10px;
+    transition: color .2s;
+  }
+  .scroll-index a .line {
+    width: 20px; height: 1px; background: var(--ink-faint);
+    transition: width .3s, background .2s;
+  }
+  .scroll-index a .lbl { opacity: 0; transition: opacity .2s; }
+  .scroll-index:hover a .lbl { opacity: 1; }
+  .scroll-index a.active { color: var(--ink); }
+  .scroll-index a.active .line { width: 36px; background: var(--accent); }
+  .scroll-index a:hover { color: var(--ink); }
+
+  /* ===== Tweaks panel ===== */
+  .tweaks {
+    position: fixed; bottom: 24px; right: 24px;
+    width: 280px; z-index: 20;
+    background: var(--paper); border: 1px solid var(--ink);
+    border-radius: 8px; overflow: hidden;
+    box-shadow: 0 18px 50px rgba(0,0,0,0.14);
+    font-family: var(--mono); font-size: 11px;
+    display: none;
+  }
+  .tweaks.show { display: block; }
+  .tweaks header { padding: 12px 14px; border-bottom: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink); font-weight: 500; }
+  .tweaks header .close { cursor: pointer; color: var(--ink-faint); background: none; border: none; font: inherit; }
+  .tweaks header .close:hover { color: var(--ink); }
+  .tweaks .grp { padding: 12px 14px; border-bottom: 1px solid var(--rule); }
+  .tweaks .grp:last-child { border-bottom: none; }
+  .tweaks .grp .lbl { font-size: 9.5px; letter-spacing: 0.18em; color: var(--ink-faint); text-transform: uppercase; margin-bottom: 8px; }
+  .tweaks .swatches { display: flex; gap: 8px; }
+  .tweaks .sw {
+    width: 34px; height: 34px; border-radius: 50%;
+    border: 1px solid var(--rule); cursor: pointer;
+    position: relative;
+    transition: transform .15s;
+  }
+  .tweaks .sw:hover { transform: scale(1.08); }
+  .tweaks .sw.active { border-color: var(--ink); box-shadow: 0 0 0 2px var(--paper), 0 0 0 3px var(--ink); }
+  .tweaks .chips { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tweaks .chip {
+    padding: 6px 10px; border: 1px solid var(--rule);
+    border-radius: 3px; cursor: pointer;
+    text-transform: uppercase; letter-spacing: 0.1em; font-size: 10px;
+    background: var(--paper); color: var(--ink);
+  }
+  .tweaks .chip.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .tweaks .row { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+  .tweaks .toggle {
+    width: 34px; height: 20px; border-radius: 999px; background: var(--rule);
+    position: relative; cursor: pointer; transition: background .2s;
+  }
+  .tweaks .toggle::after {
+    content: ""; position: absolute; top: 2px; left: 2px;
+    width: 16px; height: 16px; border-radius: 50%; background: var(--paper);
+    transition: left .2s;
+  }
+  .tweaks .toggle.on { background: var(--accent); }
+  .tweaks .toggle.on::after { left: 16px; }
+
+  /* ===== Density variant ===== */
+  [data-density="compact"] .hero { padding: 36px 0 24px; }
+  [data-density="compact"] .hero h1 { font-size: clamp(60px, 9vw, 132px); }
+  [data-density="compact"] section.block { padding: 64px 0 12px; }
+  [data-density="compact"] .xp-item { padding: 16px 0 18px; }
+  [data-density="compact"] .xp-item .role { font-size: 24px; }
+
+  /* ===== Layout variant: cover ===== */
+  [data-layout="cover"] .hero-stack { display: none; }
+  [data-layout="cover"] .hero-cover { display: grid; }
+  .hero-cover { display: none; }
+  .hero-cover {
+    min-height: 80vh;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: end;
+    padding: 60px 0 40px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-cover .left h1 {
+    font-family: var(--serif); font-weight: 400;
+    font-size: clamp(90px, 14vw, 220px);
+    line-height: 0.88; letter-spacing: -0.025em;
+    margin: 0;
+  }
+  .hero-cover .left h1 .it { font-style: italic; color: var(--accent); display: block; }
+  .hero-cover .right { text-align: right; padding-bottom: 16px; }
+  .hero-cover .right .tagline { font-family: var(--serif); font-size: 28px; line-height: 1.2; margin-bottom: 24px; }
+  .hero-cover .right .mono { font-size: 11px; color: var(--ink-soft); letter-spacing: 0.14em; text-transform: uppercase; }
+
+  /* Responsive */
+  @media (max-width: 960px) {
+    .rail, .scroll-index { display: none; }
+    main, .topbar { margin-left: 0; }
+    .topbar { padding: 12px 20px; }
+    main { padding: 0 20px 80px; }
+    .hero .title-row { grid-template-columns: 1fr; }
+    .contact { grid-template-columns: 1fr 1fr; }
+    .contact > div:nth-child(2n) { border-right: none; }
+    .contact > div:nth-child(1), .contact > div:nth-child(2) { border-bottom: 1px solid var(--rule); }
+    .xp-item { grid-template-columns: 1fr; gap: 8px; }
+    .xp-item .expand { display: none; }
+    .skill-card { grid-column: span 12; }
+    .two-col { grid-template-columns: 1fr; gap: 40px; }
+    footer .foot-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body data-theme="paper" data-density="cozy" data-layout="stack">
+
+<!-- Rail -->
+<div class="rail">
+  <div class="mark">AK <em>—</em> 26</div>
+  <div class="foot">PORTFOLIO / 01</div>
+</div>
+
+<!-- Top bar -->
+<div class="topbar">
+  <div><span class="dot"></span>Available for Creative Lead roles · Delhi, IN</div>
+  <div class="right">
+    <span>EST · 2019</span>
+    <button class="cta" onclick="window.print()">Download PDF</button>
+  </div>
+</div>
+
+<!-- Scroll index -->
+<nav class="scroll-index" id="scrollIndex">
+  <a href="#intro"><span class="line"></span><span class="lbl">Intro</span></a>
+  <a href="#experience"><span class="line"></span><span class="lbl">Experience</span></a>
+  <a href="#skills"><span class="line"></span><span class="lbl">Skills</span></a>
+  <a href="#clients"><span class="line"></span><span class="lbl">Clients</span></a>
+  <a href="#education"><span class="line"></span><span class="lbl">Education</span></a>
+  <a href="#projects"><span class="line"></span><span class="lbl">Projects</span></a>
+</nav>
+
+<main>
+  <!-- Hero -->
+  <section class="hero" id="intro">
+    <div class="hero-stack">
+      <div class="meta">
+        <span>Portfolio / 2026</span>
+        <span>Creative Lead, Motion &amp; Graphic Designer — Available for select engagements</span>
+      </div>
+
+      <h1>
+        Akash<br>
+        Kapr<span class="it">u</span>wan<span style="color: var(--accent)">.</span>
+      </h1>
+
+      <div class="title-row">
+        <div class="tagline">
+          Designing <span class="accent">motion, identity</span> &amp; brand systems for a new generation of companies.
+        </div>
+        <div class="summary">
+          Creative Lead and Motion Designer with 7+ years crafting high-impact visuals for top-tier brands across India and globally. Leads creative teams, manages client relationships, and delivers campaigns from concept through execution — now integrating AI-assisted pipelines and Framer into the toolkit.
+        </div>
+      </div>
+
+      <div class="pills">
+        <span class="pill"><span class="dot"></span>Motion Graphics</span>
+        <span class="pill"><span class="dot"></span>Brand Identity</span>
+        <span class="pill"><span class="dot"></span>3D / Blender</span>
+        <span class="pill"><span class="dot"></span>AI-Assisted Design</span>
+        <span class="pill"><span class="dot"></span>Framer</span>
+        <span class="pill"><span class="dot"></span>Pitch Decks</span>
+        <span class="pill"><span class="dot"></span>Creative Direction</span>
+      </div>
+    </div>
+
+    <!-- Cover variant -->
+    <div class="hero-cover">
+      <div class="left">
+        <h1>Akash <span class="it">Kapruwan</span></h1>
+      </div>
+      <div class="right">
+        <div class="tagline">Creative Lead · Motion &amp; Graphic Designer. Seven years, one obsession — motion that sells the idea.</div>
+        <div class="mono">Portfolio 2026 / Delhi, India</div>
+      </div>
+    </div>
+
+    <!-- Contact band -->
+    <div class="contact">
+      <div>
+        <div class="label">Based in</div>
+        <div class="value">Delhi, IN</div>
+      </div>
+      <div>
+        <div class="label">Email</div>
+        <a class="value" href="mailto:furridzns@gmail.com">furridzns@gmail.com</a>
+      </div>
+      <div>
+        <div class="label">Phone</div>
+        <div class="value">+91 63964 30432</div>
+      </div>
+      <div>
+        <div class="label">Links</div>
+        <a class="value" href="https://www.linkedin.com/in/akash-kapruwan-abb07422a/" target="_blank" rel="noopener" style="display:block; font-size: 20px; line-height: 1.15;">LinkedIn ↗</a>
+        <a class="value" href="https://www.behance.net/gallery/230616453/Portfolio-2025-Akash" target="_blank" rel="noopener" style="display:block; font-size: 20px; line-height: 1.15; margin-top: 2px;">Graphics ↗</a>
+        <a class="value" href="https://drive.google.com/drive/folders/1GKf0hZ3owbj4znlXsNRhePeacTrTIjnY?usp=drive_link" target="_blank" rel="noopener" style="display:block; font-size: 20px; line-height: 1.15; margin-top: 2px;">Motion ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section class="block" id="experience">
+    <div class="section-head">
+      <div class="num">02</div>
+      <h2>Work <span class="it">experience</span></h2>
+      <div class="count">04 roles · 7+ yrs</div>
+    </div>
+
+    <div class="xp">
+      <div class="xp-item current" data-idx="0">
+        <div class="dates">Nov 2025 <span class="sep">—</span> Present</div>
+        <div class="body">
+          <h3 class="role">Creative Lead</h3>
+          <div class="company">Sukudo Studios <span class="at">·</span> Creative Agency</div>
+          <ul>
+            <li>Lead end-to-end creative output — motion graphics explainers, pitch decks for brand partnerships, product launches, client onboarding, brand identity, social campaigns, and launch videos.</li>
+            <li>Designed and shipped a responsive marketing site for Sukudo Studios, positioning the studio for international client outreach.</li>
+            <li>Serve as primary point of contact for key clients, translating briefs into cohesive visual strategies that drive measurable engagement.</li>
+            <li>Integrated AI tools (Adobe Firefly, Veo, Kling, Seedream) into production workflows, cutting turnaround time while elevating output quality.</li>
+          </ul>
+          <div class="details">
+            <div class="tags">
+              <span class="tag">After Effects</span><span class="tag">Figma</span><span class="tag">Framer</span><span class="tag">Blender</span>
+              <span class="tag">Firefly</span><span class="tag">Veo</span><span class="tag">Kling</span>
+              <span class="tag">Team Leadership</span><span class="tag">Client Strategy</span>
+            </div>
+          </div>
+        </div>
+        <div class="expand"><span class="arr">›</span> Expand</div>
+      </div>
+
+      <div class="xp-item" data-idx="1">
+        <div class="dates">Jun 2025 <span class="sep">—</span> Nov 2025</div>
+        <div class="body">
+          <h3 class="role">Graphic &amp; Motion Designer</h3>
+          <div class="company">Trident Exhibitors <span class="at">·</span> Exhibition &amp; Activations</div>
+          <ul>
+            <li>Designed graphics and motion content for government exhibitions, brand activations, and social media — including stage backdrops, printed materials, and promotional video.</li>
+            <li>Delivered high-quality output for notable clients including APEDA and Biofach under tight deadlines and multi-project workloads.</li>
+            <li>Created cohesive visual systems for large-format exhibition environments across multiple concurrent events.</li>
+          </ul>
+          <div class="details">
+            <div class="tags">
+              <span class="tag">Large Format</span><span class="tag">Motion</span><span class="tag">Stage Design</span>
+              <span class="tag">Photoshop</span><span class="tag">Premiere</span>
+            </div>
+          </div>
+        </div>
+        <div class="expand"><span class="arr">›</span> Expand</div>
+      </div>
+
+      <div class="xp-item" data-idx="2">
+        <div class="dates">Feb 2025 <span class="sep">—</span> Jun 2025</div>
+        <div class="body">
+          <h3 class="role">Designer — 2D</h3>
+          <div class="company">Fervent Communication Pvt. Ltd. <span class="at">·</span> Corporate Events</div>
+          <ul>
+            <li>Designed high-impact 2D visuals for major corporate events and brand activations — stage backdrops, digital screens, and print collateral.</li>
+            <li>Collaborated cross-functionally with strategy and production teams for clients including Google, Meta, Airtel, Kohler, and Nutanix.</li>
+            <li>Delivered quality work across multiple simultaneous large-scale projects with fast turnaround requirements.</li>
+          </ul>
+          <div class="details">
+            <div class="tags">
+              <span class="tag">Google</span><span class="tag">Meta</span><span class="tag">Airtel</span>
+              <span class="tag">Kohler</span><span class="tag">Nutanix</span>
+            </div>
+          </div>
+        </div>
+        <div class="expand"><span class="arr">›</span> Expand</div>
+      </div>
+
+      <div class="xp-item" data-idx="3">
+        <div class="dates">2019 <span class="sep">—</span> 2024</div>
+        <div class="body">
+          <h3 class="role">Freelance Graphic Designer</h3>
+          <div class="company">Independent <span class="at">·</span> 15+ Clients Worldwide</div>
+          <ul>
+            <li>Built a diverse freelance portfolio serving 15+ well-known brands — Chai Sutta Bar, Acer, Flipkart, Battle XO, Fanspace Esports, Sleepy Owl Coffee, BEERTALES, Underdogs Arena, Bluenose Marketing, The Knotsmen.</li>
+            <li>Delivered branding, social content, digital marketing assets, and print design across food &amp; beverage, gaming, esports, and lifestyle verticals.</li>
+            <li>Managed the full client lifecycle independently — from brief to delivery — building long-term relationships through consistent, impactful work.</li>
+          </ul>
+          <div class="details">
+            <div class="tags">
+              <span class="tag">Brand Identity</span><span class="tag">Print</span><span class="tag">Social</span>
+              <span class="tag">Client Management</span><span class="tag">E-commerce</span>
+            </div>
+          </div>
+        </div>
+        <div class="expand"><span class="arr">›</span> Expand</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section class="block" id="skills">
+    <div class="section-head">
+      <div class="num">03</div>
+      <h2>Skills <span class="it">&amp; tools</span></h2>
+      <div class="count">06 disciplines</div>
+    </div>
+
+    <div class="skills">
+      <div class="skill-card">
+        <div class="cat"><span>Motion &amp; Video</span><span class="idx">/01</span></div>
+        <h3>After Effects, Premiere &amp; beyond</h3>
+        <div class="items">
+          <span class="it">After Effects</span><span class="it">Premiere Pro</span>
+          <span class="it">Motion Graphics</span><span class="it">Explainer Videos</span>
+          <span class="it">Reels</span>
+        </div>
+        <div class="level"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div>
+      </div>
+
+      <div class="skill-card">
+        <div class="cat"><span>Graphic Design</span><span class="idx">/02</span></div>
+        <h3>Identity, typography &amp; print</h3>
+        <div class="items">
+          <span class="it">Photoshop</span><span class="it">Illustrator</span>
+          <span class="it">Typography</span><span class="it">Brand Identity</span>
+          <span class="it">Print</span>
+        </div>
+        <div class="level"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div>
+      </div>
+
+      <div class="skill-card">
+        <div class="cat"><span>Web &amp; Interactive</span><span class="idx">/03</span></div>
+        <h3>Framer, prototyping &amp; motion on the web</h3>
+        <div class="items">
+          <span class="it new">Framer</span>
+          <span class="it">Interactive Prototypes</span>
+          <span class="it">Web Animation</span>
+          <span class="it">Responsive Layout</span>
+        </div>
+        <div class="level"><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span></div>
+      </div>
+
+      <div class="skill-card">
+        <div class="cat"><span>3D &amp; Animation</span><span class="idx">/04</span></div>
+        <h3>Blender — intermediate</h3>
+        <div class="items">
+          <span class="it">3D Animation</span><span class="it">Rendering</span>
+          <span class="it">Product Viz</span>
+        </div>
+        <div class="level"><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span></div>
+      </div>
+
+      <div class="skill-card">
+        <div class="cat"><span>AI Design Tools</span><span class="idx">/05</span></div>
+        <h3>Generative pipelines</h3>
+        <div class="items">
+          <span class="it">Adobe Firefly</span><span class="it">Veo</span>
+          <span class="it">Kling</span><span class="it">Seedream</span>
+          <span class="it">ChatGPT / Claude</span>
+        </div>
+        <div class="level"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div>
+      </div>
+
+      <div class="skill-card">
+        <div class="cat"><span>Leadership &amp; Craft</span><span class="idx">/06</span></div>
+        <h3>Direction, clients, pace</h3>
+        <div class="items">
+          <span class="it">Creative Direction</span><span class="it">Team Leadership</span>
+          <span class="it">Mentoring</span><span class="it">Client Management</span>
+          <span class="it">Deadline-Driven</span>
+        </div>
+        <div class="level"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Clients -->
+  <section class="block" id="clients">
+    <div class="section-head">
+      <div class="num">04</div>
+      <h2>Notable <span class="it">clients &amp; brands</span></h2>
+      <div class="count">25+ names</div>
+    </div>
+
+    <div class="clients-wrap">
+      <div class="clients-group">
+        <div class="cat">Corporate &amp; Tech</div>
+        <div class="clients-grid">
+          <span class="client-chip">Google</span>
+          <span class="client-chip">Meta</span>
+          <span class="client-chip">Airtel</span>
+          <span class="client-chip">Kohler</span>
+          <span class="client-chip">Nutanix</span>
+          <span class="client-chip">Acer</span>
+          <span class="client-chip">Flipkart</span>
+          <span class="client-chip">Battle XO</span>
+        </div>
+      </div>
+
+      <div class="clients-group">
+        <div class="cat">F&amp;B / Lifestyle</div>
+        <div class="clients-grid">
+          <span class="client-chip">Chai Sutta Bar</span>
+          <span class="client-chip">BEERTALES Brewery</span>
+          <span class="client-chip">Sleepy Owl Coffee</span>
+          <span class="client-chip">Bluenose Marketing</span>
+        </div>
+      </div>
+
+      <div class="clients-group">
+        <div class="cat">Gaming / Esports / Events</div>
+        <div class="clients-grid">
+          <span class="client-chip">Fanspace Esports</span>
+          <span class="client-chip">Underdogs Arena</span>
+          <span class="client-chip">APEDA</span>
+          <span class="client-chip">Biofach</span>
+          <span class="client-chip">The Knotsmen</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Education + languages -->
+  <section class="block" id="education">
+    <div class="section-head">
+      <div class="num">05</div>
+      <h2>Education <span class="it">&amp; languages</span></h2>
+      <div class="count">02 + 02</div>
+    </div>
+
+    <div class="two-col">
+      <div>
+        <div class="edu-item">
+          <div class="dates">2021 — 2023</div>
+          <h4>Bachelor of Information Technology</h4>
+          <p>Himalayan Institute of Technology</p>
+        </div>
+        <div class="edu-item">
+          <div class="dates">2019 — 2023</div>
+          <h4>Graphic Design — Self-Taught</h4>
+          <p>Professional practice &amp; hands-on industry experience</p>
+        </div>
+      </div>
+
+      <div>
+        <div class="lang-row">
+          <div class="name">English</div>
+          <div class="level">Professional Working</div>
+        </div>
+        <div class="lang-row">
+          <div class="name">Hindi</div>
+          <div class="level">Native</div>
+        </div>
+        <div class="lang-row">
+          <div class="name" style="color: var(--ink-faint); font-style: italic;">Visual</div>
+          <div class="level">Mother tongue</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section class="block" id="projects">
+    <div class="section-head">
+      <div class="num">06</div>
+      <h2>Personal <span class="it">projects</span></h2>
+      <div class="count">02 initiatives</div>
+    </div>
+
+    <div class="two-col">
+      <div class="proj-item">
+        <div class="dates">Workflow &amp; Automation</div>
+        <h4>Creative Production Automation</h4>
+        <p>Built automated reminder workflows using Gmail and Telegram Bot APIs, exploring how automation can reduce repetitive tasks in creative production pipelines.</p>
+      </div>
+      <div class="proj-item">
+        <div class="dates">Continuous Learning</div>
+        <h4>AI-Generative &amp; 3D Pipelines</h4>
+        <p>Actively exploring AI-generative video tools (Veo, Kling, Seedream), 3D animation pipelines, and creative automation to stay ahead of industry trends and bring cutting-edge capability to every project.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="big">Let's make<br>something <span class="it">good.</span></div>
+    <div class="foot-grid">
+      <div>
+        <div class="tiny" style="color: var(--ink-faint); margin-bottom: 6px;">Write</div>
+        <a href="mailto:furridzns@gmail.com" style="text-transform: none; letter-spacing: 0;">furridzns@gmail.com</a>
+      </div>
+      <div>
+        <div class="tiny" style="color: var(--ink-faint); margin-bottom: 6px;">Call</div>
+        <div style="text-transform: none; letter-spacing: 0;">+91 6396 430432</div>
+      </div>
+      <div>
+        <div class="tiny" style="color: var(--ink-faint); margin-bottom: 6px;">Find me</div>
+        <a href="#" style="text-transform: none; letter-spacing: 0;">LinkedIn ↗ · Graphics ↗ · Motion ↗</a>
+      </div>
+      <div style="text-align: right;">
+        <div class="sig">— Akash, 2026</div>
+      </div>
+    </div>
+  </footer>
+</main>
+
+<!-- Tweaks -->
+<div class="tweaks" id="tweaks">
+  <header>
+    <span>Tweaks</span>
+    <button class="close" id="tweakClose">✕</button>
+  </header>
+  <div class="grp">
+    <div class="lbl">Theme</div>
+    <div class="swatches" id="themeSwatches">
+      <div class="sw active" data-theme="paper" style="background: #F3EEE5;" title="Paper"></div>
+      <div class="sw" data-theme="ink" style="background: #12110F;" title="Ink"></div>
+      <div class="sw" data-theme="moss" style="background: #E3E5D7;" title="Moss"></div>
+      <div class="sw" data-theme="pool" style="background: #DEE3E7;" title="Pool"></div>
+    </div>
+  </div>
+  <div class="grp">
+    <div class="lbl">Hero layout</div>
+    <div class="chips" id="layoutChips">
+      <div class="chip active" data-layout="stack">Editorial</div>
+      <div class="chip" data-layout="cover">Cover</div>
+    </div>
+  </div>
+  <div class="grp">
+    <div class="lbl">Density</div>
+    <div class="chips" id="densityChips">
+      <div class="chip active" data-density="cozy">Cozy</div>
+      <div class="chip" data-density="compact">Compact</div>
+    </div>
+  </div>
+  <div class="grp">
+    <div class="row">
+      <span class="lbl" style="margin: 0;">Grain texture</span>
+      <div class="toggle on" id="grainToggle"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "theme": "pool",
+  "layout": "stack",
+  "density": "cozy",
+  "grain": true
+}/*EDITMODE-END*/;
+
+let state = { ...TWEAK_DEFAULTS };
+
+function applyState() {
+  document.body.dataset.theme = state.theme;
+  document.body.dataset.layout = state.layout;
+  document.body.dataset.density = state.density;
+  document.body.style.setProperty('--grain-opacity', state.grain ? '0.6' : '0');
+  // grain
+  const style = document.getElementById('dyn-grain') || (() => {
+    const s = document.createElement('style'); s.id = 'dyn-grain'; document.head.appendChild(s); return s;
+  })();
+  style.textContent = state.grain ? '' : 'body::before{display:none}';
+
+  // sync controls
+  document.querySelectorAll('#themeSwatches .sw').forEach(el => el.classList.toggle('active', el.dataset.theme === state.theme));
+  document.querySelectorAll('#layoutChips .chip').forEach(el => el.classList.toggle('active', el.dataset.layout === state.layout));
+  document.querySelectorAll('#densityChips .chip').forEach(el => el.classList.toggle('active', el.dataset.density === state.density));
+  document.getElementById('grainToggle').classList.toggle('on', state.grain);
+}
+
+function saveState(patch) {
+  state = { ...state, ...patch };
+  applyState();
+  try {
+    window.parent.postMessage({type: '__edit_mode_set_keys', edits: patch}, '*');
+  } catch(e) {}
+  localStorage.setItem('resume_tweaks', JSON.stringify(state));
+}
+
+// Restore
+try {
+  const saved = JSON.parse(localStorage.getItem('resume_tweaks') || 'null');
+  if (saved) state = { ...state, ...saved };
+} catch(e) {}
+applyState();
+
+// Bind controls
+document.querySelectorAll('#themeSwatches .sw').forEach(el => {
+  el.addEventListener('click', () => saveState({ theme: el.dataset.theme }));
+});
+document.querySelectorAll('#layoutChips .chip').forEach(el => {
+  el.addEventListener('click', () => saveState({ layout: el.dataset.layout }));
+});
+document.querySelectorAll('#densityChips .chip').forEach(el => {
+  el.addEventListener('click', () => saveState({ density: el.dataset.density }));
+});
+document.getElementById('grainToggle').addEventListener('click', () => {
+  saveState({ grain: !state.grain });
+});
+
+// Edit mode protocol
+window.addEventListener('message', (e) => {
+  if (!e.data || typeof e.data !== 'object') return;
+  if (e.data.type === '__activate_edit_mode') {
+    document.getElementById('tweaks').classList.add('show');
+  } else if (e.data.type === '__deactivate_edit_mode') {
+    document.getElementById('tweaks').classList.remove('show');
+  }
+});
+document.getElementById('tweakClose').addEventListener('click', () => {
+  document.getElementById('tweaks').classList.remove('show');
+});
+try { window.parent.postMessage({type: '__edit_mode_available'}, '*'); } catch(e) {}
+
+// Expand/collapse experience items
+document.querySelectorAll('.xp-item').forEach(item => {
+  item.addEventListener('click', () => item.classList.toggle('open'));
+});
+
+// Scroll-tracked index
+const sections = ['intro','experience','skills','clients','education','projects'];
+const links = document.querySelectorAll('#scrollIndex a');
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const id = e.target.id;
+      links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + id));
+    }
+  });
+}, { rootMargin: '-40% 0px -55% 0px' });
+sections.forEach(id => {
+  const el = document.getElementById(id);
+  if (el) obs.observe(el);
+});
+
+// Smooth scroll
+links.forEach(l => {
+  l.addEventListener('click', (e) => {
+    e.preventDefault();
+    const id = l.getAttribute('href').slice(1);
+    const el = document.getElementById(id);
+    if (el) window.scrollTo({ top: el.offsetTop - 60, behavior: 'smooth' });
+  });
+});
+</script>
+</body>
+</html>
