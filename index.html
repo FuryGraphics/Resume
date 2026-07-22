@@ -185,6 +185,41 @@
   .pill .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
   .pill:hover { color: var(--ink); border-color: var(--ink); }
 
+  /* ===== Founder highlight (Lumet Studios) ===== */
+  .founder {
+    display: inline-flex; align-items: baseline; gap: 12px;
+    margin: 22px 0 4px;
+    text-decoration: none;
+  }
+  .founder .kicker {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--ink-faint);
+    white-space: nowrap;
+  }
+  .founder .brand {
+    font-family: var(--serif); font-style: italic;
+    font-size: clamp(30px, 4.4vw, 52px); line-height: 1;
+    background: linear-gradient(
+      100deg,
+      #C0632F, #E0A34A, #6FAE9C, #4A7BE0, #A05CD0, #C0632F
+    );
+    background-size: 300% 100%;
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; color: transparent;
+    animation: lumet-flow 6s linear infinite;
+  }
+  .founder .arrow {
+    font-family: var(--serif); font-size: 22px; color: var(--ink-faint);
+    transition: transform .2s, color .2s;
+  }
+  .founder:hover .arrow { transform: translate(3px, -3px); color: var(--accent); }
+  @keyframes lumet-flow {
+    to { background-position: 300% 50%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .founder .brand { animation: none; }
+  }
+
   /* contact band */
   .contact {
     display: grid;
@@ -576,6 +611,12 @@
         Kapr<span class="it">u</span>wan<span style="color: var(--accent)">.</span>
       </h1>
 
+      <a class="founder" href="https://lumetstudio.online" target="_blank" rel="noopener">
+        <span class="kicker">Founder</span>
+        <span class="brand">Lumet Studios</span>
+        <span class="arrow">↗</span>
+      </a>
+
       <div class="title-row">
         <div class="tagline">
           Designing <span class="accent">motion, identity</span> &amp; <span class="accent">interactive web</span> systems for a new generation of companies.
@@ -586,6 +627,7 @@
       </div>
 
       <div class="pills">
+        <span class="pill"><span class="dot"></span>Founder · Lumet Studios</span>
         <span class="pill"><span class="dot"></span>Motion Graphics</span>
         <span class="pill"><span class="dot"></span>Brand Identity</span>
         <span class="pill"><span class="dot"></span>3D / Blender</span>
@@ -635,11 +677,51 @@
     <div class="section-head">
       <div class="num">02</div>
       <h2>Work <span class="it">experience</span></h2>
-      <div class="count">04 roles · 7+ yrs</div>
+      <div class="count">06 roles · 7+ yrs</div>
     </div>
 
     <div class="xp">
-      <div class="xp-item current" data-idx="0">
+      <div class="xp-item current" data-idx="founder">
+        <div class="dates">2026 <span class="sep">—</span> Present</div>
+        <div class="body">
+          <h3 class="role">Founder &amp; Creative Director</h3>
+          <div class="company"><a href="https://lumetstudio.online" target="_blank" rel="noopener" style="color:inherit; text-decoration:none; border-bottom:1px solid var(--rule);">Lumet Studios</a> <span class="at">·</span> lumetstudio.online</div>
+          <ul>
+            <li>Founded Lumet Studios — a creative studio delivering motion design, brand identity, and interactive web experiences for a new generation of companies.</li>
+            <li>Set the studio's creative vision and visual direction, building an AI-assisted production pipeline from concept through delivery.</li>
+            <li>Own client relationships and business development end-to-end, translating briefs into cohesive campaigns that drive measurable engagement.</li>
+          </ul>
+          <div class="details">
+            <div class="tags">
+              <span class="tag">Creative Direction</span><span class="tag">Brand Strategy</span><span class="tag">Motion</span>
+              <span class="tag">Framer</span><span class="tag">AI Pipelines</span><span class="tag">Business Development</span>
+            </div>
+          </div>
+        </div>
+        <div class="expand"><span class="arr">›</span> Expand</div>
+      </div>
+
+      <div class="xp-item current" data-idx="cgo">
+        <div class="dates">2026 <span class="sep">—</span> Present</div>
+        <div class="body">
+          <h3 class="role">Chief Growth Officer</h3>
+          <div class="company"><a href="https://www.estimate-engine.com" target="_blank" rel="noopener" style="color:inherit; text-decoration:none; border-bottom:1px solid var(--rule);">Case Climb</a> <span class="at">·</span> formerly Estimate Engine</div>
+          <ul>
+            <li>Drive growth strategy as CGO for Case Climb (formerly Estimate Engine), overseeing brand, marketing, and go-to-market direction.</li>
+            <li>Shape the product's visual identity and web presence — having designed and shipped the platform's site end-to-end with Claude Code.</li>
+            <li>Align creative, positioning, and partnership initiatives to accelerate user acquisition and market reach.</li>
+          </ul>
+          <div class="details">
+            <div class="tags">
+              <span class="tag">Growth Strategy</span><span class="tag">Go-To-Market</span><span class="tag">Brand</span>
+              <span class="tag">Web</span><span class="tag">Partnerships</span>
+            </div>
+          </div>
+        </div>
+        <div class="expand"><span class="arr">›</span> Expand</div>
+      </div>
+
+      <div class="xp-item" data-idx="0">
         <div class="dates">Nov 2025 <span class="sep">—</span> Present</div>
         <div class="body">
           <h3 class="role">Creative Lead</h3>
