@@ -188,7 +188,7 @@ export const ventures = {
     name: "Local Cascade",
     mark: "/local-cascade-mark.svg",
     description:
-      "The complete customer-getting system for local businesses: a custom website, local SEO, an automated Google review funnel, and AI missed-call text back, built and run as one system.",
+      "The complete customer-getting system for local businesses: a custom website, local SEO, an automated Google review funnel, and an AI chat widget that answers and captures leads around the clock, built and run as one system.",
     motto: "YOU RUN THE BUSINESS. WE BRING THE CUSTOMERS.",
     cta: { label: "Visit localcascade.com", href: LOCAL_CASCADE },
   },
@@ -217,10 +217,12 @@ export const work = {
   labels: { problem: "PROBLEM", solution: "SOLUTION", result: "RESULT" },
   liveLabel: "VIEW LIVE SITE",
   /**
-   * Cards 1 and 2 are the two builds shown on localcascade.com; their
-   * solution lines are taken from that page. Problem and result are yours to
-   * fill in. Card 3 is a full placeholder for a third industry. Do not
-   * publish a result you cannot back up.
+   * Cards 1 and 2 are builds localcascade.com used to show; their solution
+   * lines come from that page. Both sites were offline as of 2026-11-08
+   * (Vercel DEPLOYMENT_NOT_FOUND), so they carry no link. Add one back if a
+   * site returns. Problem and result are yours to fill in. Card 3 is a full
+   * placeholder for a third industry. Do not publish a result you cannot
+   * back up.
    */
   cases: [
     {
@@ -232,7 +234,7 @@ export const work = {
         "A conversion-focused website, an automated review funnel, missed call text back, and one-click SMS campaigns, built as one system for home service contractors.",
       result: "[CLIENT RESULT]",
       meta: "WEBSITE · REVIEW FUNNEL · MISSED CALL TEXT BACK · SMS CAMPAIGNS",
-      link: "https://www.estimate-engine.com/",
+      link: "",
     },
     {
       category: "ROOFING",
@@ -243,7 +245,7 @@ export const work = {
         "A complete digital setup for a Tampa Bay roofing restoration company: website build, Google review funnel, free inspection booking automation, and a local SEO foundation.",
       result: "[CLIENT RESULT]",
       meta: "WEBSITE · GOOGLE REVIEW FUNNEL · LOCAL SEO · INSPECTION BOOKING",
-      link: "https://www.foreverhomesroofrestoration.com/",
+      link: "",
     },
     {
       category: "[INDUSTRY]",
