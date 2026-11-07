@@ -13,7 +13,7 @@ import { getPosts } from "@/lib/blog";
  * localcascade.com. All copy comes from site.config.ts.
  */
 export default async function Home() {
-  const posts = (await getPosts()).slice(0, 3);
+  const posts = (await getPosts()).slice(0, 6);
 
   return (
     <>

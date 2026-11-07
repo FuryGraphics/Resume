@@ -33,7 +33,7 @@ export function PostCard({ post }: { post: Post }) {
 }
 
 /**
- * Writing - the three latest posts from content/blog as a hairline grid.
+ * Writing - the six latest posts from content/blog as a hairline grid.
  */
 export default function Writing({ posts }: { posts: Post[] }) {
   return (

@@ -42,7 +42,7 @@ export default function Hero() {
           </Button>
         </div>
 
-        <dl className="mt-12 md:mt-20 grid grid-cols-2 lg:grid-cols-4 gap-px bg-hairline border border-hairline">
+        <dl className="mt-12 md:mt-20 grid grid-cols-1 sm:grid-cols-3 gap-px bg-hairline border border-hairline">
           {hero.facts.map(fact => (
             <div key={fact.label} className="bg-paper p-4 md:p-6">
               <dt className="font-mono-label text-accent text-[0.625rem] md:text-xs mb-1.5 md:mb-2">

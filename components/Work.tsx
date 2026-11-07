@@ -31,7 +31,11 @@ export default function Work() {
         </Offset>
 
         <Offset>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12 md:gap-x-8">
+          <div
+            className={`grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-12 md:gap-x-8 ${
+              work.cases.length >= 3 ? "lg:grid-cols-3" : ""
+            }`}
+          >
             {work.cases.map((item, i) => (
               <article key={i} className="group flex flex-col" data-reveal style={revealDelay(i)}>
                 <div className="relative aspect-[4/3] overflow-hidden bg-well border border-hairline">
@@ -58,7 +62,7 @@ export default function Work() {
                 </h3>
 
                 <dl className="mt-4 border-t border-hairline">
-                  {rows.map(row => (
+                  {rows.filter(row => item[row.key]).map(row => (
                     <div key={row.key} className="py-3 border-b border-hairline">
                       <dt
                         className={`font-mono-label mb-1 text-[0.625rem] md:text-xs ${

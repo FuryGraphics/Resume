@@ -1,15 +1,14 @@
 import Image from "next/image";
 import { ventures } from "@/site.config";
-import { Button, Copy, InkBackdrop, Offset, SectionIndex, SmartLink } from "./ui";
+import { Button, InkBackdrop, Offset, SectionIndex } from "./ui";
 
 /**
  * Ventures - dark section. Local Cascade is the primary card, and the way
  * off this site for anyone who wants to buy; its services and pricing live
- * there, not here. Case Climb sits beside it as the second venture. Set
- * ventures.secondary to null in site.config to drop it.
+ * there, not here.
  */
 export default function Ventures() {
-  const { primary, secondary } = ventures;
+  const { primary } = ventures;
 
   return (
     <section
@@ -30,12 +29,8 @@ export default function Ventures() {
         </Offset>
 
         <Offset>
-          <div
-            className={`grid grid-cols-1 gap-px bg-hairline-ink ${secondary ? "lg:grid-cols-5" : ""}`}
-            data-reveal
-          >
-            {/* Local Cascade */}
-            <article className={`bg-ink p-6 md:p-10 lg:p-12 flex flex-col ${secondary ? "lg:col-span-3" : ""}`}>
+          <div className="border border-hairline-ink" data-reveal>
+            <article className="bg-ink p-6 md:p-10 lg:p-12 flex flex-col">
               <div className="flex items-center gap-3 mb-6 md:mb-8">
                 <span className="font-mono-label bg-accent text-white px-2.5 py-1">{primary.role}</span>
                 <span className="h-px flex-1 bg-hairline-ink" />
@@ -62,34 +57,6 @@ export default function Ventures() {
                 </Button>
               </div>
             </article>
-
-            {/* Case Climb */}
-            {secondary && (
-              <article className="bg-ink p-6 md:p-10 lg:p-12 flex flex-col lg:col-span-2">
-                <div className="flex items-center gap-3 mb-6 md:mb-8">
-                  <span className="font-mono-label text-on-ink-muted">{secondary.role}</span>
-                  <span className="h-px flex-1 bg-hairline-ink" />
-                </div>
-
-                <h3 className="text-2xl md:text-3xl font-bold tracking-tight">{secondary.name}</h3>
-                <p className="lc-body mt-4 md:mt-6 text-base text-on-ink-muted">
-                  <Copy>{secondary.description}</Copy>
-                </p>
-
-                <div className="mt-auto pt-8 md:pt-10">
-                  {secondary.cta.href ? (
-                    <SmartLink
-                      href={secondary.cta.href}
-                      className="lc-link text-base font-medium text-on-ink-soft hover:text-white transition-colors"
-                    >
-                      {secondary.cta.label} →
-                    </SmartLink>
-                  ) : (
-                    <span className="lc-placeholder text-sm text-on-ink-muted">[CASE CLIMB URL]</span>
-                  )}
-                </div>
-              </article>
-            )}
           </div>
         </Offset>
       </div>

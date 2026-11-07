@@ -48,8 +48,7 @@ export default function Footer() {
             >
               <p className="font-mono-label text-on-ink-muted mb-4 md:mb-5">{column.label}</p>
               <ul className="space-y-2 md:space-y-3">
-                {/* A link with no URL yet (Case Climb) is left out */}
-                {column.links.filter(link => link.href).map(link => (
+                {column.links.map(link => (
                   <li key={link.label}>
                     <SmartLink
                       href={link.href}

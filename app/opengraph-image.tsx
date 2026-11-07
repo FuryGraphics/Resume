@@ -83,13 +83,10 @@ export default function OpengraphImage() {
           }}
         >
           <div style={{ display: "flex" }}>
-            {hero.facts
-              .slice(0, 2)
-              .map(fact => `${fact.label}, ${fact.value.toUpperCase()}`)
-              .join(" · ")}
+            {`${hero.facts[0].label}, ${hero.facts[0].value.toUpperCase()}`}
           </div>
           <div style={{ display: "flex", color: "#004AAD" }}>
-            {hero.facts[2].value.toUpperCase()}
+            {hero.facts[1].value.toUpperCase()}
           </div>
         </div>
       </div>

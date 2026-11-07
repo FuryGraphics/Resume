@@ -34,12 +34,10 @@ npm run lint
 
 Anything in `[SQUARE BRACKETS]` renders in mono type on the page so it cannot pass for finished copy. Search `site.config.ts` for `[` to find them.
 
-- [ ] **Your story**: the third paragraph in `about.paragraphs`
 - [ ] **How I work**: the three `about.principles` are a draft, make them sound like you
-- [ ] **Case Climb**: `ventures.secondary.description` and `links.caseClimb` (or set `ventures.secondary` to `null` to remove the card)
-- [ ] **Work**: `problem` and `result` on cards 1 and 2, and all of card 3, in `work.cases`
+- [ ] **Work** (optional): `problem` and `result` in `work.cases`, hidden while empty
 - [ ] **Booking link**: `links.booking` (Calendly or Cal.com). While empty, "Book a call" scrolls to the contact form
-- [ ] **Blog posts**: the three files in `content/blog/` are draft outlines marked `placeholder: true`. They are noindexed and left out of the sitemap until you rewrite them and delete that line
+- [ ] **Blog posts**: the three posts in `content/blog/` were drafted for you. Read them before launch; they are published and indexed
 - [ ] **Contact form delivery**: set `CONTACT_WEBHOOK_URL` (see below). Until then messages only reach the server log
 
 ## Connecting the contact form
@@ -61,7 +59,7 @@ export const metadata = {
 Body in Markdown.
 ```
 
-It appears on `/blog`, in the sitemap, and (if it is one of the three newest) on the home page.
+It appears on `/blog`, in the sitemap, and (if it is one of the six newest) on the home page.
 
 ## Deploy to Vercel
 

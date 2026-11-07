@@ -62,12 +62,6 @@ export const viewport: Viewport = {
 const PERSON_ID = `${site.url}/#person`;
 const ORG_ID = `${links.localCascade}/#organization`;
 
-const caseClimb = ventures.secondary && {
-  "@type": "Organization",
-  name: ventures.secondary.name,
-  ...(links.caseClimb ? { url: links.caseClimb } : {}),
-};
-
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
@@ -84,7 +78,7 @@ const jsonLd = {
       description: site.description,
       email: `mailto:${links.email}`,
       address: { "@type": "PostalAddress", addressCountry: person.countryCode },
-      worksFor: [{ "@id": ORG_ID }, ...(caseClimb ? [caseClimb] : [])],
+      worksFor: { "@id": ORG_ID },
       knowsAbout: person.knowsAbout,
       sameAs: [links.linkedin],
     },
@@ -94,7 +88,6 @@ const jsonLd = {
       name: "Local Cascade",
       url: links.localCascade,
       logo: `${links.localCascade}/icon-512.png`,
-      email: links.email,
       description: ventures.primary.description,
       founder: { "@id": PERSON_ID },
     },
