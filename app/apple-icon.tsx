@@ -1,0 +1,29 @@
+import { ImageResponse } from "next/og";
+
+/** Home-screen icon for iOS: the AK mark on the accent blue. */
+export const size = { width: 180, height: 180 };
+export const contentType = "image/png";
+
+export default function AppleIcon() {
+  return new ImageResponse(
+    (
+      <div
+        style={{
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: "#004AAD",
+          color: "#FFFFFF",
+          fontSize: 76,
+          fontWeight: 700,
+          letterSpacing: -2,
+        }}
+      >
+        AK
+      </div>
+    ),
+    size
+  );
+}

@@ -1,0 +1,186 @@
+@import "tailwindcss";
+@import "../styles/tokens.css";
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Clears the fixed header (h-16 / md:h-20) so an anchored section lands
+       below it instead of under it. */
+    scroll-padding-top: 4.5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (min-width: 768px) {
+    html {
+      scroll-padding-top: 6rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  ::selection {
+    background-color: rgb(0 74 173 / 0.2);
+    color: inherit;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
+  .on-ink :focus-visible {
+    outline-color: var(--color-on-ink);
+  }
+}
+
+@layer components {
+  /* Class names follow Local Cascade's index.css so a component can move
+     between the two sites without renaming anything. */
+  .lc-container {
+    width: 100%;
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .lc-container {
+      padding-inline: 2rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .lc-container {
+      padding-inline: 3rem;
+      max-width: var(--container-max);
+    }
+  }
+
+  .font-mono-label {
+    font-family: var(--font-mono);
+    font-size: var(--label-size);
+    font-weight: var(--label-weight);
+    letter-spacing: var(--label-tracking);
+    text-transform: uppercase;
+  }
+
+  .lc-display {
+    font-family: var(--font-sans);
+    font-weight: var(--display-weight);
+    letter-spacing: var(--display-tracking);
+    line-height: var(--display-leading);
+  }
+
+  .lc-body {
+    font-family: var(--font-sans);
+    font-weight: 400;
+    line-height: var(--body-leading);
+  }
+
+  /* Dark sections: spotlight from the top, faint vertical grid lines */
+  .lc-spotlight {
+    background: var(--spotlight);
+  }
+
+  .lc-grid-ink {
+    opacity: 0.04;
+    background-image: linear-gradient(90deg, #ffffff 1px, transparent 1px);
+    background-size: var(--grid-ink-size) 100%;
+  }
+
+  .lc-grid-paper {
+    opacity: 0.03;
+    background-image:
+      linear-gradient(var(--color-ink) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-ink) 1px, transparent 1px);
+    background-size: var(--grid-paper-size) var(--grid-paper-size);
+  }
+
+  /* Button press */
+  .lc-cta {
+    transition:
+      transform 0.16s var(--ease-out-quint),
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      color 0.2s ease;
+  }
+
+  .lc-cta:active {
+    transform: scale(var(--cta-press-scale));
+  }
+
+  /* Link underline reveal */
+  .lc-link {
+    position: relative;
+    display: inline-block;
+  }
+
+  .lc-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s var(--ease-out-quint);
+  }
+
+  .lc-link:hover::after,
+  .lc-link:focus-visible::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  /* Copy still waiting on real content: "[CLIENT RESULT]" and the like.
+     Set in mono so nobody mistakes it for finished copy. */
+  .lc-placeholder {
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    letter-spacing: 0.02em;
+  }
+
+  /* Scroll reveal. Elements marked data-reveal fade up once, when
+     components/RevealObserver.tsx sees them enter the viewport. The <noscript>
+     rule in app/layout.tsx shows them when JavaScript is off. */
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(var(--reveal-distance));
+    transition:
+      opacity var(--reveal-duration) var(--ease-out-quint),
+      transform var(--reveal-duration) var(--ease-out-quint);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  [data-reveal].is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal] {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+
+    .lc-cta,
+    .lc-link::after {
+      transition: none;
+    }
+  }
+}

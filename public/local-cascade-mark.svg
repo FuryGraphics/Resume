@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1350 1350" role="img" aria-label="Local Cascade">
+  <title>Local Cascade</title>
+  <rect x="0" y="0" width="450" height="450" fill="#C8D1D9"/>
+  <rect x="900" y="0" width="450" height="450" fill="#004AAD"/>
+  <rect x="450" y="450" width="450" height="450" fill="#004AAD"/>
+  <rect x="0" y="900" width="450" height="450" fill="#004AAD"/>
+  <rect x="900" y="900" width="450" height="450" fill="#C8D1D9"/>
+</svg>

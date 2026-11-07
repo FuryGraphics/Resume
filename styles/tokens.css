@@ -1,0 +1,95 @@
+/* ============================================================
+   Design tokens, shared with Local Cascade ("Editorial Mono").
+   Source of truth: lumet-studio-github/client/src/index.css and the
+   hex values its components use. Change a value here only if it
+   changes there too, so the two sites stay one brand.
+   Light-dominant warm paper, broken by near-black sections.
+   One accent: #004AAD.
+   ============================================================ */
+
+@theme {
+  /* Surfaces */
+  --color-paper: #fafaf9; /* page background */
+  --color-card: #ffffff; /* hover / raised surface on paper */
+  --color-well: #f5f5f5; /* image and photo placeholders */
+  --color-ink: #0d0d0d; /* headings on paper, dark section background */
+  --color-ink-raised: #111111; /* hover on dark cells */
+
+  /* Text on paper, strongest to faintest */
+  --color-strong: #404040;
+  --color-body: #525252;
+  --color-muted: #737373; /* mono labels: the faintest shade that passes AA on paper */
+  --color-faint: #a3a3a3; /* decorative only on paper; body text on ink */
+  --color-ghost: #d4d4d4; /* separators */
+
+  /* Text on ink */
+  --color-on-ink: #ffffff;
+  --color-on-ink-soft: #e5e5e5;
+  --color-on-ink-muted: #a3a3a3;
+
+  /* Hairlines, used instead of shadows and boxes */
+  --color-hairline: #e5e5e5;
+  --color-hairline-ink: #262626;
+  --color-hairline-ink-soft: #1a1a1a;
+
+  /* Accent, used for CTAs, links, key emphasis, and nothing else */
+  --color-accent: #004aad;
+  --color-accent-hover: #003a87;
+  --color-accent-tint: #c8d1d9; /* the pale squares in the logo mark */
+  /* The one token Local Cascade does not have: #004AAD is 2.4:1 against
+     #0D0D0D, so text set in the accent on a dark section uses this lighter
+     step of the same blue (5.9:1). Fills, badges, and rules stay #004AAD. */
+  --color-accent-on-ink: #4d8df0;
+
+  /* Type */
+  --font-sans: var(--font-inter), "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-jetbrains), "JetBrains Mono", "SF Mono", Menlo, monospace;
+
+  /* The one shadow on the site (header dropdown) */
+  --shadow-panel: 0 12px 40px rgba(13, 13, 13, 0.08);
+
+  /* Motion */
+  --ease-out-quint: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+:root {
+  /* Layout */
+  --container-max: 1320px;
+
+  /* Fluid display sizes, as used on Local Cascade */
+  --text-display-hero: clamp(2rem, 6.2vw, 5.25rem);
+  --text-display-sub: clamp(1.5rem, 4vw, 2.5rem);
+  --text-display-section: clamp(1.75rem, 5vw, 3.75rem);
+  --text-display-statement: clamp(1.25rem, 3.5vw, 2.25rem);
+  --text-display-stat: clamp(2.5rem, 6vw, 4.25rem);
+  --text-display-price: clamp(2.75rem, 7vw, 4.5rem);
+
+  /* Display type: Inter 700, tight */
+  --display-weight: 700;
+  --display-tracking: -0.035em;
+  --display-leading: 0.98;
+
+  /* Body */
+  --body-leading: 1.7;
+
+  /* Mono labels: "01 / THE SYSTEM" */
+  --label-size: 0.75rem;
+  --label-weight: 500;
+  --label-tracking: 0.08em;
+
+  /* Motion timings */
+  --reveal-distance: 16px;
+  --reveal-duration: 0.6s;
+  --cta-press-scale: 0.97;
+  --image-hover-scale: 1.03;
+
+  /* Background textures */
+  --grid-paper-size: 80px; /* #0D0D0D grid at 3% opacity on paper */
+  --grid-ink-size: 120px; /* white vertical lines at 4% on ink */
+  --spotlight: radial-gradient(
+    ellipse 35% 55% at 50% -5%,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.02) 40%,
+    transparent 70%
+  );
+}
